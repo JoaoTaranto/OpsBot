@@ -1,13 +1,23 @@
 const fs = require("node:fs");
 const path = require("node:path");
+const express = require("express");
+const HLTV = require("hltv-api").default;
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 
+// Criação de Instancias CLientes/Apps
 const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-  ],
+  intents: Object.keys(GatewayIntentBits).map((key) => GatewayIntentBits[key]),
+});
+
+const hltv_app = express();
+
+hltv_app.listen(3000, () => {
+  console.log(`API listening on port 3000`);
+});
+
+hltv_app.get("/", async (req, res) => {
+  const news = await HLTV.getNews();
+  res.json(news);
 });
 
 client.commands = new Collection();
@@ -54,5 +64,4 @@ client.on("interactionCreate", async (interaction) => {
     }
   }
 });
-console.log(process.env.DISCORD_TOKEN);
 client.login(process.env.DISCORD_TOKEN);
