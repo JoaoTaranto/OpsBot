@@ -1,23 +1,11 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const express = require("express");
-const HLTV = require("hltv-api").default;
+const app_api = require("./api/api.js");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 
 // Criação de Instancias CLientes/Apps
 const client = new Client({
   intents: Object.keys(GatewayIntentBits).map((key) => GatewayIntentBits[key]),
-});
-
-const hltv_app = express();
-
-hltv_app.listen(3000, () => {
-  console.log(`API listening on port 3000`);
-});
-
-hltv_app.get("/", async (req, res) => {
-  const news = await HLTV.getNews();
-  res.json(news);
 });
 
 client.commands = new Collection();
@@ -38,6 +26,10 @@ for (const file of commandFiles) {
     console.log(`⚠️  Aviso: ${file} está faltando "data" ou "execute"`);
   }
 }
+
+app_api.listen(3000, () => {
+  console.log(`HLTV API rodando em porta 3000`);
+});
 
 client.once("clientReady", () => {
   console.log(`🤖 Bot online como ${client.user.tag}`);
