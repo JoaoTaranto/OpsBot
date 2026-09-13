@@ -9,9 +9,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --env-file=.env app.js",
-    "deploy": "node --env-file=.env deploy.js"
+    "deploy": "node --env-file=.env deploy.js",
+    "restart": "node --env-file=.env deploy.js && node --env-file=.env app.js"
   },
   "dependencies": {
+    "deepl-node": "^1.28.0",
     "discord.js": "^14.26.4",
     "express": "^5.2.1",
     "hltv": "^3.5.0"

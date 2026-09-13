@@ -1,6 +1,6 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const app_api = require("./api/api.js");
+// const app_api = require("./api/api.js");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 
 // Criação de Instancias CLientes/Apps
@@ -27,9 +27,9 @@ for (const file of commandFiles) {
   }
 }
 
-app_api.listen(3000, () => {
-  console.log(`HLTV API rodando em porta 3000`);
-});
+// app_api.listen(3000, () => {
+//   console.log(`HLTV API rodando em porta 3000`);
+// });
 
 client.once("clientReady", () => {
   console.log(`🤖 Bot online como ${client.user.tag}`);
